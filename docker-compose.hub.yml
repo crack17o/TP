@@ -1,0 +1,29 @@
+# Lance l'app avec les images publiees sur Docker Hub
+# Usage : DOCKERHUB_USER=votre_user docker compose -f docker-compose.hub.yml up -d
+services:
+  backend:
+    image: ${DOCKERHUB_USER:?Definissez DOCKERHUB_USER}/todo-backend:latest
+    container_name: todo-backend
+    environment:
+      DJANGO_DEBUG: "false"
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me-in-production}
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,backend
+      DATABASE_PATH: /data/db.sqlite3
+      CORS_ALLOWED_ORIGINS: http://localhost,http://127.0.0.1
+    volumes:
+      - todo-data:/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  frontend:
+    image: ${DOCKERHUB_USER}/todo-frontend:latest
+    container_name: todo-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  todo-data:
