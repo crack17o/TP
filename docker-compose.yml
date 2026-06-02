@@ -6,7 +6,7 @@ services:
     container_name: todo-backend
     environment:
       DJANGO_DEBUG: "false"
-      DJANGO_SECRET_KEY: change-me-in-production
+      DJANGO_SECRET_KEY: H1saT9CcoPKy68bnxN8Pk-5Zbte7Ta2nN6opYdbFCPK7pLZFhTQofhTMt8wiqL-5bZA
       DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,backend
       DATABASE_PATH: /data/db.sqlite3
       CORS_ALLOWED_ORIGINS: http://localhost,http://127.0.0.1
